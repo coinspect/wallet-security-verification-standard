@@ -81,11 +81,11 @@ Important Note: This standard for crypto wallets security is product of ongoing 
 
 |  #  | Description                                                                                                                                                                                                                                                                      | Comment            |
 | --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
-| 6.1 | Verify that the extension injects into [Secure Contexts](https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts) only.                                                                                                                                                                               | Extension oriented |
+| 6.1 | Verify that the extension injects into [Secure Contexts](https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts) only.                                                                                                                                              | Extension oriented |
 | 6.2 | Verify that the message listener in the content script validates the origin of incoming messages to make sure they originate from the DApp. At load time, check that messages match the DApp domain and window (`event.source == window` and `event.origin == window.location.origin`). | Extension oriented |
-| 6.3 | Verify that messages received by the content script message listener are considered untrusted and validated before passing it to background script or service worker (not passed directly to `port.postMessage`, `runtime.sendMessage` or `tabs.sendMessage`).                           | Extension oriented |
+| 6.3 | Verify that messages received by the content script message listener are considered untrusted and validated before passing it to background script or service worker (not passed directly to `port.postMessage`, `runtime.sendMessage` or `tabs.sendMessage`).                     | Extension oriented |
 | 6.4 | Ensure that input sanitization and authorization aren't executed in the MAIN runtime environment (i.e. the provider), as a malicious DApp can bypass these measures by sending a message/event directly to the Content Script.                                                     | Extension oriented |
-| 6.5 | Verify that communication with other extensions or websites is not permitted (avoid using `runtime.onMessageExternal` and `runtime.onConnectExternal`).                                                                                                                                | Extension oriented |
+| 6.5 | Verify that communication with other extensions or websites is not permitted (avoid using `runtime.onMessageExternal` and `runtime.onConnectExternal`).                                                                                                                            | Extension oriented |
 | 6.6 | Verify wallet validates the schema, host and port of the connected dapp's URL. Check it doesn't allow by default DApps running on different ports or subdomains. (e.g. `subdomain.dapp.com` is not accepted as `dapp.com`).           | Extension oriented |
 
 
@@ -95,10 +95,9 @@ Important Note: This standard for crypto wallets security is product of ongoing 
 | --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
 | 7.1 | Ensure that the seed is encrypted using a robust algorithm and a secure passphrase.                                                                                                         |          |
 | 7.2 | Ensure the wallet uses reputable and secure cryptographic libraries, avoiding custom cryptographic code.                                                                                    |          |
-| 7.3 | Ensure the encryption key is derived from the user-provided password using a robust and computationally-intensive algorithm.                                                                                         |          |
-| 7.4 | Ensure that key material is inaccessible when the wallet is locked.                                                                                                                         |          |
-| 7.5 | If enabling cloud backup, verify that stored data is encrypted using a strong passphrase. Additionaly, users should be informed about the risk of storing the private key to cloud storage. |          |
-| 7.6 | Key material (mnemonics/private key) must not leave the system except through a specific export flow.                                                                                               |          |
+| 7.3 | Ensure the encryption key is derived from the user-provided password using a robust and computationally-intensive algorithm.                                                                |          |
+| 7.4 | If enabling cloud backup, verify that stored data is encrypted using a strong passphrase. Additionaly, users should be informed about the risk of storing the private key to cloud storage. |          |
+| 7.5 | Key material (mnemonics/private key) must not leave the system except through a specific export flow.                                                                                       |          |
 
 
 ## Contributing
