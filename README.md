@@ -1,8 +1,8 @@
 # Wallet Security Verification Standard (WSVS)
 
-A reference list of security checks for crypto software wallets. It can serve as a guide for technical professionals who aim to ensure that wallets have strong security features and protocols to protect against potential threats, including phishing attacks, with the ultimate goal of safeguarding funds and its users.
+This is a reference list of security checks for cryptocurrency wallets, aiming to assist technical professionals in enhancing wallet security against common threats, including phishing attacks.
 
-The checks below are part of continuous research conducted by [Coinspect](www.coinspect.com) aimed at identifying prevalent errors and establishing best practices in the realm of software cryptocurrency wallets.
+The checks below are part of ongoing research conducted by [Coinspect](https://www.coinspect.com) to identify prevalent flaws and specify best practices in cryptocurrency wallets. 
 
 ## Security checks
 
