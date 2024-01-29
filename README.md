@@ -70,12 +70,12 @@ Important Note: This standard for crypto wallets security is product of ongoing 
 
 ### 5. Ethereum Improvement Proposal (EIP) Implementation
 
-|  #  | Description                                                                                                                                                                                                                         | Comment |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| 5.1 | Verify wallet implements cross-chain replay protection ([EIP-1559](https://eips.ethereum.org/EIPS/eip-1559), transaction type 2).                                                                                                                                                       |         |
-| 5.2 | From [EIP-712](https://eips.ethereum.org/EIPS/eip-712), verify "The user-agent should refuse signing if chainId does not match the currently active chain". Otherwise, the wallet should at least warn the user when DApp is trying to use a chainId different from the active chain. |         |
-| 5.3 | Verify that it warns users when providing addresses with invalid [EIP-55](https://eips.ethereum.org/EIPS/eip-55) checksums.                                                                                                        |
-| 5.4 | Verify that it warns users when providing addresses without [EIP-55](https://eips.ethereum.org/EIPS/eip-55) checksum.                                                                                                        |
+|  #  | Description                                                                                                                                                                                                                         | Comment | Attacks/Reports |
+| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |------------------|
+| 5.1 | Verify wallet implements cross-chain replay protection ([EIP-1559](https://eips.ethereum.org/EIPS/eip-1559), transaction type 2).                                                                                                                                                       |         ||
+| 5.2 | From [EIP-712](https://eips.ethereum.org/EIPS/eip-712), verify "The user-agent should refuse signing if chainId does not match the currently active chain". Otherwise, the wallet should at least warn the user when DApp is trying to use a chainId different from the active chain. |         ||
+| 5.3 | Verify that it warns users when providing addresses with invalid [EIP-55](https://eips.ethereum.org/EIPS/eip-55) checksums.                                                                                                        ||
+| 5.4 | Verify that it warns users when providing addresses without [EIP-55](https://eips.ethereum.org/EIPS/eip-55) checksum.                                                                                                        ||
 
 ### 6. Communication
 
