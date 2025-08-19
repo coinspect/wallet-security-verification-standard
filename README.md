@@ -74,7 +74,7 @@ Important Note: This standard for crypto wallets security is product of ongoing 
 | 4.18 | The mobile wallet should prevent users from taking screenshots of the mnemonic phrase. This prevents it from being inadvertently stored in a cloud backup, for instance. | | | `ConsumerWallet` |
 | 4.19 | Verify the UI obfuscates mnemonic phrases by default at any time. | | | `ConsumerWallet` |
 | 4.20 | Verify the wallet allows displaying truncated data in full (eg. truncated addresses or rounded values). | | | `ConsumerWallet` |
-| 4.20 | Verify the wallet alerts users when trying to connect to a DApp whose URL includes deceptive, lookalike characters (homograph words or cyrillic characters). | | | `ConsumerWallet` |
+| 4.21 | Verify the wallet alerts users when trying to connect to a DApp whose URL includes deceptive, lookalike characters (homograph words or cyrillic characters). | | | `ConsumerWallet` |
 
 ### 5. Ethereum Improvement Proposal (EIP) Implementation
 
