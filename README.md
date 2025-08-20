@@ -9,9 +9,6 @@ The checks below are part of ongoing research conducted by [Coinspect](https://w
 | Category           | Description                                                                                   |
 |--------------------|----------------------------------------------------------------------------------------------|
 | `ConsumerWallet`    | End-user wallets (browser/mobile/desktop) for personal use                                   |
-| `HotWallet`         | Wallets connected to the internet, typically for exchanges or operational use                |
-| `PaymentGateway`    | Wallets used for automated payment processing and merchant services                          |
-| `EnterpriseCustody` | Institutional custody solutions, often with advanced controls (HSM, MPC, etc.)              |
 
 ## Security checks
 
