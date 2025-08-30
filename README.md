@@ -9,6 +9,7 @@ The checks below are part of ongoing research conducted by [Coinspect](https://w
 | Category           | Description                                                                                   |
 |--------------------|----------------------------------------------------------------------------------------------|
 | `ConsumerWallet`    | End-user wallets (browser/mobile/desktop) for personal use                                   |
+| `HotWallet`         | Wallets connected to the internet, typically for exchanges or operational use                |
 
 ## Security checks
 
@@ -102,6 +103,22 @@ Important Note: This standard for crypto wallets security is product of ongoing 
 | 7.3 | Ensure the encryption key is derived from the user-provided password using a robust and computationally-intensive algorithm. | | [Swisstronik Wallet](https://github.com/SigmaGmbH/Bug-Bounty-1.0/issues/13) | `ConsumerWallet` |
 | 7.4 | If enabling cloud backup, verify that stored data is encrypted using a strong passphrase. Additionaly, users should be informed about the risk of storing the private key to cloud storage. | | | `ConsumerWallet` |
 | 7.5 | Key material (mnemonics/private key) must not leave the system except through a specific export flow. | | | `ConsumerWallet` |
+
+### 8. Hot Wallet
+
+| #   | Description | Comment | Attacks/Reports | Category |
+| --- | ----------- | ------- | --------------- | -------- |
+| 8.1 | Verify that private keys are stored with proper file system permissions (e.g., 600 or 400) or encrypted storage with access controls restricting unauthorized access. | Secure key storage |  | `HotWallet` |
+| 8.2 | Ensure automated balance monitoring is implemented with configurable minimum thresholds for both native tokens and ERC-20 tokens, with immediate alerting when thresholds are breached. | Fund protection |  | `HotWallet` |
+| 8.3 | Verify that transaction processing implements proper nonce management and retry mechanisms to prevent double-spending and transaction conflicts. This is not applicable for UTXO-type chains like Bitcoin. In particular, ensure that new transactions can be issued even when previous transactions are unconfirmed, without waiting for confirmation. | Transaction integrity |  | `HotWallet` |
+| 8.4 | Ensure that all outgoing transactions are logged and periodically reconciled against blockchain records to detect unauthorized transfers. | Audit trail |  | `HotWallet` |
+| 8.5 | Verify that emergency fund evacuation mechanisms are implemented to automatically transfer funds to secure addresses when suspicious activity is detected. | Emergency response |  | `HotWallet` |
+| 8.6 | Verify that transaction broadcasting includes proper gas fee estimation with configurable safety margins to prevent transactions from failing due to insufficient fees. **Note:** When sending a large number of transactions, the fee estimation mechanism itself may be affected, so take extra care. | Transaction reliability | [OKX overpaid massively to consolidate Bitcoin UTXOs (Protos)](https://protos.com/okx-overpaid-massively-to-consolidate-bitcoin-utxos/) | `HotWallet` |
+| 8.7 | Ensure that transaction records include transaction hash, date, and confirmation status for efficient blockchain state verification and logging. | Transaction record completeness |  | `HotWallet` |
+| 8.8 | Confirm that when the RPC endpoint or the blockchain itself is unavailable, the system either returns an appropriate error or queues the transaction and waits for recovery before processing. | RPC/chain outage handling |  | `HotWallet` |
+| 8.9 | Confirm that the framework allows for future support of additional currencies on different networks and cross-chain token migrations with reasonable development effort. | Extensibility for multi-network/cross-chain | [Celo migration to Ethereum L2 (Cointelegraph)](https://cointelegraph.com/news/celo-migrates-to-ethereum-layer-2-using-op-stack) [Helium migration to Solana (Helium Docs)](https://docs.helium.com/solana/) | `HotWallet` |
+| 8.10 | Ensure that the implementation provides external notifications when a transaction is confirmed as successful or failed, as needed. | Notification on transaction result |  | `HotWallet` |
+
 
 
 ## Contributing
