@@ -1,16 +1,14 @@
-# Wallet Security Verification Standard (WSVS)
+# Wallet Security Controls (WSC)
 
-A reference list of security checks for crypto software wallets. It can serve as a guide for technical professionals who aim to ensure that wallets have strong security features and protocols to protect against potential threats, including phishing attacks, with the ultimate goal of safeguarding funds and its users.
+A catalog of security controls for crypto software wallets. It can serve as a guide for technical professionals who aim to ensure that wallets have strong security features and protocols to protect against potential threats, including phishing attacks, with the ultimate goal of safeguarding funds and its users.
 
-The checks below are part of continuous research conducted by [Coinspect](www.coinspect.com) aimed at identifying prevalent errors and establishing best practices in the realm of software cryptocurrency wallets.
+The controls below are part of continuous research conducted by [Coinspect](https://www.coinspect.com) aimed at identifying prevalent errors and establishing best practices in the realm of software cryptocurrency wallets.
 
-## Security checks
+## Security controls
 
-Most of the checks presented in the tables below apply broadly and aren't limited to a specific platform. However, some checks are relevant only for browser extensions or applications that inject a provider. In addition, a few checks aim to EVM-compatible wallets only.
+Most of the controls presented in the tables below apply broadly and aren't limited to a specific platform. However, some controls are relevant only for browser extensions or applications that inject a provider. In addition, a few controls apply to EVM-compatible wallets only.
 
-Checks are classified by categories (General, Authentication, etc.), and provide additional information in hyperlinks.
-
-Important Note: This standard for crypto wallets security is product of ongoing research and is inherently dynamic in nature. While every effort has been made to ensure its accuracy and applicability, it should not be viewed as definitive. It's recommended to use this guide in conjunction with other established security standards, such as the [OWASP ASVS](https://owasp.org/www-project-application-security-verification-standard/), to provide a more comprehensive security posture.
+Controls are classified by categories (General, Authentication, etc.), and provide additional information in hyperlinks.
 
 ### 1. General
 
