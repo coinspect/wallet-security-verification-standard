@@ -1,25 +1,25 @@
 # Wallet Security Benchmark (WSB)
 
-The WSB is a set of black-box tests that can be performed against a wallet without access to its source code. The tests focus primarily on phishing protection — evaluating how well a wallet defends users against deceptive DApps, malicious signatures, and social engineering at the UI level.
+The WSB is a set of black-box tests that can be performed against a wallet without access to its source code. The tests focus primarily on phishing protection — evaluating how well a wallet defends users against deceptive dApps, malicious signatures, and social engineering at the UI level.
 
-## DApp Permissions (PERM)
+## dApp Permissions (PERM)
 
 Tests to ensure the wallet always asks before dApps access your balance or suggest transaction, and provides permissions control features such as token approvals management.
 
 | ID | Name | Description |
 |---|---|---|
-| [WSB-PERM-001](#wsb-perm-001) | SIWE domain mismatch warning | Alerts users of discrepancies or unusual patterns in Sign-in with Ethereum (EIP-4361) requests. |
-| [WSB-PERM-002~Mobile](#wsb-perm-002mobile) | Wallet unlock before requests | Requires users to unlock before processing DApp requests when in a locked state. |
-| [WSB-PERM-002~Browser](#wsb-perm-002browser) | Wallet unlock before requests | Requires users to unlock before processing DApp requests when in a locked state. |
+| [WSB-PERM-001](#wsb-perm-001) | SIWE domain mismatch warning | Warns users when the domain in a Sign-In with Ethereum (EIP-4361) message does not match the requesting dApp's origin. |
+| [WSB-PERM-002~Mobile](#wsb-perm-002mobile) | Wallet unlock before requests | Requires users to unlock before processing dApp requests when in a locked state. |
+| [WSB-PERM-002~Browser](#wsb-perm-002browser) | Wallet unlock before requests | Requires users to unlock before processing dApp requests when in a locked state. |
 | [WSB-PERM-003](#wsb-perm-003) | Different ChainID | Alerts users or rejects requests to sign EIP-712 data with a chain ID different from the active chain. |
-| [WSB-PERM-004](#wsb-perm-004) | Connected DApps | Allows users to list and revoke connected DApps. |
+| [WSB-PERM-004](#wsb-perm-004) | Connected dApps | Allows users to list and revoke connected dApps. |
 | [WSB-PERM-005](#wsb-perm-005) | List and revoke token approvals | Allows users to view and revoke token approvals. |
-| [WSB-PERM-006](#wsb-perm-006) | Disables `eth_sign` method | Restricts the use of the deprecated and insecure `eth_sign` method by default. |
-| [WSB-PERM-007~Mobile](#wsb-perm-007mobile) | Confirmation for WalletConnect requests | Requires user confirmation for WalletConnect requests before granting DApp access to specific RPC methods. |
-| [WSB-PERM-008~Browser](#wsb-perm-008browser) | Connection to grant DApp access | Requires user connection approval before granting DApp access to specific RPC methods. |
+| [WSB-PERM-006](#wsb-perm-006) | Disables eth_sign method | Restricts the use of the deprecated and insecure eth_sign method by default. |
+| [WSB-PERM-007~Mobile](#wsb-perm-007mobile) | Confirmation for WalletConnect requests | Requires user confirmation for WalletConnect requests before granting dApp access to specific RPC methods. |
+| [WSB-PERM-008~Browser](#wsb-perm-008browser) | Connection to grant dApp access | Requires user connection approval before granting dApp access to specific RPC methods. |
 | [WSB-PERM-009](#wsb-perm-009) | User confirmation before switching chains | Requires user confirmation before accepting requests to switch the active chain. |
-| [WSB-PERM-010~Mobile](#wsb-perm-010mobile) | User confirmation for embedded browser requests | Requires user confirmation before processing specific RPC methods from DApps in the embedded browser. |
-| [WSB-PERM-010~Browser](#wsb-perm-010browser) | User confirmation before processing requests | Requires user confirmation before processing DApp requests for specific RPC methods. |
+| [WSB-PERM-010~Mobile](#wsb-perm-010mobile) | User confirmation for embedded browser requests | Requires user confirmation before processing specific RPC methods from dApps in the embedded browser. |
+| [WSB-PERM-010~Browser](#wsb-perm-010browser) | User confirmation before processing requests | Requires user confirmation before processing dApp requests for specific RPC methods. |
 
 ---
 
@@ -27,11 +27,11 @@ Tests to ensure the wallet always asks before dApps access your balance or sugge
 
 **SIWE domain mismatch warning**
 
-Alerts users of discrepancies or unusual patterns in Sign-in with Ethereum (EIP-4361) requests.
+Warns users when the domain in a Sign-In with Ethereum (EIP-4361) message does not match the requesting dApp's origin.
 
-**Testing instructions:** Generate and attempt to sign a SIWE message from a DApp whose origin differs from the domain specified in the SIWE object. Observe whether the wallet warns the user or blocks the signing.
+**Testing instructions:** Generate and attempt to sign a SIWE message from a dApp whose origin differs from the domain specified in the SIWE object. Observe whether the wallet warns the user or blocks the signing.
 
-**Reasoning:** A mismatch between the DApp origin and the domain inside the SIWE message can indicate phishing or session hijacking attempt. Warning on this helps users avoid signing login messages that could authenticate them to a different service than the one they think they are using.
+**Reasoning:** A mismatch between the dApp origin and the domain inside the SIWE message can indicate phishing or session hijacking attempt. Warning on this helps users avoid signing login messages that could authenticate them to a different service than the one they think they are using.
 
 ---
 
@@ -39,9 +39,9 @@ Alerts users of discrepancies or unusual patterns in Sign-in with Ethereum (EIP-
 
 **Wallet unlock before requests** · Mobile
 
-Requires users to unlock before processing DApp requests when in a locked state.
+Requires users to unlock before processing dApp requests when in a locked state.
 
-**Testing instructions:** If the wallet implements WalletConnect, with the wallet previously connected but in a locked state, send requests from a DApp to the following RPC endpoints: `wallet_addEthereumChain`, `wallet_watchAsset`, `eth_decrypt`, `eth_getEncryptionPublicKey`, `eth_signTypedData*`, `personal_sign`, `eth_sendTransaction`. Observe whether the wallet prompts for authentication and does not leak information before fulfilling each request.
+**Testing instructions:** If the wallet implements WalletConnect, with the wallet previously connected but in a locked state, send requests from a dApp to the following RPC endpoints: `wallet_addEthereumChain`, `wallet_watchAsset`, `eth_decrypt`, `eth_getEncryptionPublicKey`, `eth_signTypedData*`, `personal_sign`, `eth_sendTransaction`. Observe whether each request triggers an authentication prompt before being processed and look for possible information leaks.
 
 **Reasoning:** A locked wallet must never continue serving sensitive requests, since that would weaken the purpose of the lock state. Requiring an unlock prevents unauthorized access to accounts, signatures, or encrypted material if the device is unattended or temporarily exposed.
 
@@ -51,9 +51,9 @@ Requires users to unlock before processing DApp requests when in a locked state.
 
 **Wallet unlock before requests** · Browser
 
-Requires users to unlock before processing DApp requests when in a locked state.
+Requires users to unlock before processing dApp requests when in a locked state.
 
-**Testing instructions:** With the wallet already connected to a DApp but in a locked state, send requests from the DApp to each of the following RPC endpoints: `wallet_addEthereumChain`, `wallet_watchAsset`, `eth_decrypt`, `eth_getEncryptionPublicKey`, `eth_signTypedData*`, `personal_sign`, and `eth_sendTransaction`. Observe whether each request triggers an authentication prompt before being processed.
+**Testing instructions:** With the wallet already connected to a dApp but in a locked state, send requests from the dApp to each of the following RPC endpoints: `wallet_addEthereumChain`, `wallet_watchAsset`, `eth_decrypt`, `eth_getEncryptionPublicKey`, `eth_signTypedData*`, `personal_sign`, and `eth_sendTransaction`. Observe whether each request triggers an authentication prompt before being processed and look for possible information leaks.
 
 **Reasoning:** A locked wallet must never continue serving sensitive requests, since that would weaken the purpose of the lock state. Requiring an unlock prevents unauthorized access to accounts, signatures, or encrypted material if the device is unattended or temporarily exposed.
 
@@ -73,13 +73,13 @@ Alerts users or rejects requests to sign typed structured data (EIP-712) with a 
 
 ### WSB-PERM-004
 
-**Connected DApps**
+**Connected dApps**
 
-Allows users to list and revoke connected DApps.
+Allows users to list and revoke connected dApps.
 
-**Testing instructions:** Look for a section within the wallet UI that lists all connected DApps. Disconnect the testing DApp, then send multiple RPC requests from it to verify access has been fully revoked.
+**Testing instructions:** Having previously connected to at least two dApps, look for a section within the wallet UI that lists all connected dApps. Disconnect the testing dApp, then send RPC requests from it to verify access has been fully revoked.
 
-**Reasoning:** Persistent DApp connections represent an ongoing trust relationship, so users need visibility into which apps still have access. The ability to review and revoke those connections reduces the risk of stale approvals, forgotten sessions, or continued access after the user no longer trusts the DApp.
+**Reasoning:** Persistent dApp connections represent an ongoing trust relationship, so users need visibility into which apps still have access. The ability to review and revoke those connections reduces the risk of stale approvals, forgotten sessions, or continued access after the user no longer trusts the dApp.
 
 ---
 
@@ -89,7 +89,7 @@ Allows users to list and revoke connected DApps.
 
 Allows users to view and revoke token approvals.
 
-**Testing instructions:** Look for functionality within the wallet UI to list and revoke token approvals, either as a built-in feature or as a link to an external DApp.
+**Testing instructions:** Look for functionality within the wallet UI to list and revoke token approvals, either as a built-in feature or as a link to an external dApp.
 
 **Reasoning:** Token approvals can outlive a single transaction and are a common source of loss when a spender contract is compromised or malicious. Letting users inspect and revoke approvals gives them a practical way to reduce standing risk and clean up excessive allowances.
 
@@ -97,13 +97,13 @@ Allows users to view and revoke token approvals.
 
 ### WSB-PERM-006
 
-**Disables `eth_sign` method**
+**Disables eth_sign method**
 
 Restricts the use of the deprecated and insecure `eth_sign` method by default.
 
-**Testing instructions:** With the wallet connected and unlocked, send an `eth_sign` RPC request via a DApp and observe the response. Note that some wallets silently redirect `eth_sign` calls to `personal_sign` instead.
+**Testing instructions:** With the wallet connected and unlocked, send an `eth_sign` RPC request via a dApp and observe the response. Note that some wallets silently redirect `eth_sign` calls to `personal_sign` instead.
 
-**Reasoning:** `eth_sign` is historically dangerous because it signs raw data in a way that is easy to misuse and hard for users to interpret safely. In particular, it can be abused to trick users into signing raw transaction hashes or other opaque payloads without clear context. Disabling it by default reduces compatibility with insecure legacy flows and pushes DApps toward safer, more explicit signing methods.
+**Reasoning:** `eth_sign` is historically dangerous because it signs raw data in a way that is easy to misuse and hard for users to interpret safely. In particular, it can be abused to trick users into signing raw transaction hashes or other opaque payloads without clear context. Disabling it by default reduces compatibility with insecure legacy flows and pushes dApps toward safer, more explicit signing methods.
 
 ---
 
@@ -111,23 +111,23 @@ Restricts the use of the deprecated and insecure `eth_sign` method by default.
 
 **Confirmation for WalletConnect requests** · Mobile
 
-Requires user confirmation for WalletConnect requests before granting DApp access to specific RPC methods.
+Requires user confirmation for WalletConnect requests before granting dApp access to specific RPC methods.
 
-**Testing instructions:** If the wallet supports WalletConnect, connect to a DApp via WalletConnect and send requests to the following RPC endpoints: `wallet_addEthereumChain`, `wallet_watchAsset`, `eth_decrypt`, `eth_getEncryptionPublicKey`, `eth_signTypedData*`, `personal_sign`, `eth_sendTransaction`. Observe whether each request surfaces a confirmation prompt.
+**Testing instructions:** If the wallet implements WalletConnect, connect to a dApp via WalletConnect and send requests to the following RPC endpoints: `wallet_addEthereumChain`, `wallet_watchAsset`, `eth_decrypt`, `eth_getEncryptionPublicKey`, `eth_signTypedData*`, `personal_sign`, `eth_sendTransaction`. Observe whether each request surfaces a confirmation prompt.
 
-**Reasoning:** Requiring confirmation for sensitive RPC methods ensures the DApp cannot silently trigger signing, encryption, asset watching, or transaction actions without the user noticing.
+**Reasoning:** Requiring confirmation for sensitive RPC methods ensures the dApp cannot silently trigger signing, encryption, asset watching, or transaction actions without the user noticing.
 
 ---
 
 ### WSB-PERM-008~Browser
 
-**Connection to grant DApp access** · Browser
+**Connection to grant dApp access** · Browser
 
-Requires user connection approval before granting DApp access to specific RPC methods.
+Requires user connection approval before granting dApp access to specific RPC methods.
 
-**Testing instructions:** Without first connecting the wallet to a DApp, send requests to the following RPC endpoints: `eth_accounts`, `eth_decrypt`, `eth_getEncryptionPublicKey`, `eth_signTypedData*`, `personal_sign`, `eth_sendTransaction`. Observe whether each request triggers a connection prompt or is rejected, and there are no information leaks.
+**Testing instructions:** Without first connecting the wallet to a dApp, send requests to the following RPC endpoints: `eth_accounts`, `eth_decrypt`, `eth_getEncryptionPublicKey`, `eth_signTypedData*`, `personal_sign`, `eth_sendTransaction`. Observe whether each request triggers a connection prompt or is rejected, and there are no information leaks.
 
-**Reasoning:** A DApp should not be able to access accounts or request sensitive operations before the user explicitly grants it permission. Enforcing a connection step prevents passive data exposure and makes the trust decision visible and deliberate.
+**Reasoning:** A dApp should not be able to access accounts or request sensitive operations before the user explicitly grants it permission. Enforcing a connection step prevents passive data exposure and makes the trust decision visible and deliberate.
 
 ---
 
@@ -137,7 +137,7 @@ Requires user connection approval before granting DApp access to specific RPC me
 
 Requires user confirmation before accepting requests to switch the active chain.
 
-**Testing instructions:** Send a `wallet_switchEthereumChain` RPC request from a DApp and observe whether a confirmation prompt appears. If no prompt is shown, check whether the wallet allows users to manage pre-approved networks within the connection dialog — if so, configure only one approved network and attempt to switch to any other chain. Perform this test through both the browser interface and the WalletConnect interface, if applicable.
+**Testing instructions:** Send a `wallet_switchEthereumChain` RPC request from a dApp and observe whether a confirmation prompt appears. If no prompt is shown, check whether the wallet allows users to manage pre-approved networks within the connection dialog — if so, configure only one approved network and attempt to switch to any other chain. Perform this test through both the browser interface and the WalletConnect interface, if applicable.
 
 **Reasoning:** Chain switching changes the execution context of future transactions and signatures, so it should never happen silently. Confirmation protects users from being moved onto an unexpected network where balances, assets, or contract interactions may behave very differently.
 
@@ -147,11 +147,11 @@ Requires user confirmation before accepting requests to switch the active chain.
 
 **User confirmation for embedded browser requests** · Mobile
 
-Requires user confirmation before processing specific RPC methods from DApps loaded by the embedded browser.
+Requires user confirmation before processing specific RPC methods from dApps loaded by the embedded browser.
 
-**Testing instructions:** If the wallet has an embedded browser, it requires user confirmation before processing each DApp request to the following RPC endpoints: `wallet_addEthereumChain`, `wallet_watchAsset`, `eth_decrypt`, `eth_getEncryptionPublicKey`, `eth_signTypedData*`, `personal_sign`, `eth_sendTransaction`.
+**Testing instructions:** If the wallet has an embedded browser, it requires user confirmation before processing each dApp request to the following RPC endpoints: `wallet_addEthereumChain`, `wallet_watchAsset`, `eth_decrypt`, `eth_getEncryptionPublicKey`, `eth_signTypedData*`, `personal_sign`, `eth_sendTransaction`.
 
-**Reasoning:** Requiring confirmation for sensitive RPC methods ensures the DApp cannot silently trigger signing, encryption, asset watching, or transaction actions without the user noticing.
+**Reasoning:** Requiring confirmation for sensitive RPC methods ensures the dApp cannot silently trigger signing, encryption, asset watching, or transaction actions without the user noticing.
 
 ---
 
@@ -159,11 +159,11 @@ Requires user confirmation before processing specific RPC methods from DApps loa
 
 **User confirmation before processing requests** · Browser
 
-Requires user confirmation before processing requests from DApps for specific RPC methods.
+Requires user confirmation before processing requests from dApps for specific RPC methods.
 
 **Testing instructions:** Send requests to the following RPC endpoints: `wallet_addEthereumChain`, `wallet_watchAsset`, `eth_decrypt`, `eth_getEncryptionPublicKey`, `eth_signTypedData*`, `personal_sign`, `eth_sendTransaction`. Observe whether each requires user confirmation.
 
-**Reasoning:** Sensitive RPC methods can lead to asset movement, approval of malicious contracts, disclosure of encryption material, or misleading signatures. Requiring per-request confirmation ensures the user reviews each action in context instead of the DApp operating with broad invisible permission.
+**Reasoning:** Sensitive RPC methods can lead to asset movement, approval of malicious contracts, disclosure of encryption material, or misleading signatures. Requiring per-request confirmation ensures the user reviews each action in context instead of the dApp operating with broad invisible permission.
 
 ---
 
@@ -175,8 +175,8 @@ Measures the wallet's ability to provide clear, human-readable transaction summa
 |---|---|---|
 | [WSB-VERI-001](#wsb-veri-001) | Invalid checksums | Warns users when they input addresses with invalid EIP-55 checksums. |
 | [WSB-VERI-002](#wsb-veri-002) | Clickable links | Consistently provides clickable links to reputable explorers for all key blockchain identifiers. |
-| [WSB-VERI-003](#wsb-veri-003) | Transaction simulation | Allows users to preview the exact outcome of a transaction before signing. |
-| [WSB-VERI-004](#wsb-veri-004) | Parses EIP-712 objects | Clearly displays human-readable details for EIP-712 signature requests from well-known DApps. |
+| [WSB-VERI-003](#wsb-veri-003) | Transaction simulation | Allows users to preview an expected outcome of a transaction before signing. |
+| [WSB-VERI-004](#wsb-veri-004) | Parses EIP-712 objects | Clearly displays human-readable details for EIP-712 signature requests from well-known dApps. |
 | [WSB-VERI-005](#wsb-veri-005) | Clear interface for ERC-20 Approve | Clearly displays all key details for ERC-20 Approve requests. |
 | [WSB-VERI-006](#wsb-veri-006) | Clear method data to be signed | Clearly displays all signature request details without truncating or hiding information. |
 | [WSB-VERI-007](#wsb-veri-007) | Review data before signing | Requires users to scroll through all signature request details before being allowed to proceed. |
@@ -189,7 +189,7 @@ Measures the wallet's ability to provide clear, human-readable transaction summa
 
 Warns users when they input addresses with invalid EIP-55 checksums.
 
-**Testing instructions:** Attempt to send a transaction to an address with an incorrect EIP-55 checksum (e.g. alter the case of any letter). The transaction should be attempted manually and from a DApp. Observe whether the wallet surfaces a warning or blocks the transaction.
+**Testing instructions:** Attempt to send a transaction to an address with an incorrect EIP-55 checksum (e.g. alter the case of any letter). The transaction should be attempted manually and from a dApp. Observe whether the wallet surfaces a warning or blocks the transaction.
 
 **Reasoning:** EIP-55 checksums are meant to catch address-entry mistakes that would otherwise be hard to spot. Warning on an invalid checksum reduces the chance of sending funds to a mistyped or malformed address, especially when users copy addresses from unreliable sources.
 
@@ -211,11 +211,11 @@ Consistently provides clickable links to reputable explorers for all key blockch
 
 **Transaction simulation**
 
-Allows users to preview the exact outcome of the requested signature by simulating the transaction in advance.
+Allows users to preview the expected outcome of the requested signature by simulating the transaction in advance.
 
-**Testing instructions:** Attempt to provide liquidity into a liquidity pool (e.g. Uniswap) and observe whether the wallet shows the expected inputs and outputs from the execution of such transaction before it is signed.
+**Testing instructions:** Attempt to provide liquidity into a liquidity pool and perform a swap (e.g. Uniswap) and observe whether the wallet shows the expected inputs and outputs from the execution of such transaction before it is signed.`
 
-**Reasoning:** Many dangerous transactions only become obvious when looking at their actual effects, not just calldata or method names. Simulation helps users see expected token movements, approvals, or state changes in advance, which is one of the strongest defenses against deceptive DApp flows.
+**Reasoning:** Many dangerous transactions only become obvious when looking at their actual effects, not just calldata or method names. Simulation helps users see expected token movements, approvals, or state changes in advance, which is one of the strongest defenses against deceptive dApp flows.
 
 ---
 
@@ -223,7 +223,7 @@ Allows users to preview the exact outcome of the requested signature by simulati
 
 **Parses EIP-712 objects**
 
-Clearly displays human-readable details for typed structured data (EIP-712) signature requests from well-known DApps.
+Clearly displays human-readable details for typed structured data (EIP-712) signature requests from well-known dApps.
 
 **Testing instructions:** Trigger EIP-712 signature requests from well-known protocols such as OpenSea Seaport, ERC-20 Permit flows, or Uniswap, and observe how the wallet renders them — whether it shows structured, human-readable detail or raw JSON.
 
@@ -237,7 +237,7 @@ Clearly displays human-readable details for typed structured data (EIP-712) sign
 
 Clearly displays all the key details for ERC-20 Approve requests.
 
-**Testing instructions:** Trigger an ERC-20 approve in two ways: 1) deploy a custom ERC-20 and call approve directly, and 2) access any swap DApp and trigger an approve through the UI. Observe what information the wallet displays about the token, spender, and amount.
+**Testing instructions:** Trigger an ERC-20 approve in two ways: 1) deploy a custom ERC-20 and call approve directly, and 2) access any swap dApp and trigger an approve through the UI. Observe what information the wallet displays about the token, spender, and amount.
 
 **Reasoning:** ERC-20 approvals can grant a spender long-lived control over tokens. Clearly showing the token, spender, and amount helps users detect malicious approvals, unlimited allowances, and approvals targeting unexpected contracts.
 
@@ -273,12 +273,12 @@ Checks that the wallet is integrated with up-to-date lists of known threats and 
 
 | ID | Name | Description |
 |---|---|---|
-| [WSB-THRE-001](#wsb-thre-001) | Verified URLs | Informs users when interacting with a well-known DApp URL. |
+| [WSB-THRE-001](#wsb-thre-001) | Verified URLs | Informs users when interacting with a well-known dApp URL. |
 | [WSB-THRE-002](#wsb-thre-002) | Alerts on phishing address | Prevents or alerts users about interactions with known malicious blockchain addresses. |
-| [WSB-THRE-003](#wsb-thre-003) | Alerts on phishing DApps | Alerts users when attempting to interact with a known malicious URL. |
-| [WSB-THRE-004](#wsb-thre-004) | DApp connection information | Informs users that connecting grants DApps access to balances, history, and signatures. |
+| [WSB-THRE-003](#wsb-thre-003) | Alerts on phishing dApps | Alerts users when attempting to interact with a known malicious URL. |
+| [WSB-THRE-004](#wsb-thre-004) | dApp connection information | Informs users that connecting grants dApps access to balances, history, and signatures. |
 | [WSB-THRE-005](#wsb-thre-005) | Interacting with unknown address | Warns users when interacting with unknown addresses. |
-| [WSB-THRE-006](#wsb-thre-006) | Shows DApp origin URL | Clearly displays the full DApp URL in the connection prompt. |
+| [WSB-THRE-006](#wsb-thre-006) | Shows dApp origin URL | Clearly displays the full dApp URL in the connection prompt. |
 | [WSB-THRE-007](#wsb-thre-007) | Hides spam or scam tokens and NFTs | Hides malicious tokens and NFTs by default. |
 
 ---
@@ -287,11 +287,11 @@ Checks that the wallet is integrated with up-to-date lists of known threats and 
 
 **Verified URLs**
 
-Informs users when interacting with a well-known DApp URL.
+Informs users when interacting with a well-known dApp URL.
 
-**Testing instructions:** Attempt to connect to a well-known DApp (e.g. Uniswap) and observe the connection request screen. Then repeat with an unknown DApp and compare how each is displayed.
+**Testing instructions:** Attempt to connect to a well-known dApp (e.g. Uniswap) and observe the connection request screen. Then repeat with an unknown dApp and compare how each is displayed.
 
-**Reasoning:** Verified DApp indicators help users distinguish trusted, well-known services from lookalike phishing sites. This is especially valuable during connection prompts, where users are often making a quick trust decision with limited information.
+**Reasoning:** Verified dApp indicators help users distinguish trusted, well-known services from lookalike phishing sites. This is especially valuable during connection prompts, where users are often making a quick trust decision with limited information.
 
 ---
 
@@ -301,7 +301,7 @@ Informs users when interacting with a well-known DApp URL.
 
 Prevents or alerts users about interactions with known malicious blockchain addresses.
 
-**Testing instructions:** Attempt to send a transaction to a known malicious address (e.g. the Tornado Cash attacker address). Test both via DApp and direct wallet UI. Observe whether the wallet surfaces any warning.
+**Testing instructions:** Attempt to send a transaction to a known malicious address (e.g. the Tornado Cash attacker address). Test both via dApp and direct wallet UI. Observe whether the wallet surfaces any warning.
 
 **Reasoning:** Many scams rely on users sending funds to addresses already known to be linked to theft, laundering, or fraud. Alerting on such addresses gives users a last defensive checkpoint before irreversible on-chain transfers.
 
@@ -309,7 +309,7 @@ Prevents or alerts users about interactions with known malicious blockchain addr
 
 ### WSB-THRE-003
 
-**Alerts on phishing DApps**
+**Alerts on phishing dApps**
 
 Alerts users when attempting to interact with a known malicious URL.
 
@@ -321,11 +321,11 @@ Alerts users when attempting to interact with a known malicious URL.
 
 ### WSB-THRE-004
 
-**DApp connection information**
+**dApp connection information**
 
-Informs users during the connection prompt that connecting grants DApps access to view balances, transaction history, and to request signatures.
+Informs users during the connection prompt that connecting grants dApps access to view balances, transaction history, and to request signatures.
 
-**Testing instructions:** Attempt connecting a DApp to the wallet and inspect the connection dialog for any description of what access the DApp is being granted.
+**Testing instructions:** Attempt connecting a dApp to the wallet and inspect the connection dialog for any description of what access the dApp is being granted.
 
 **Reasoning:** Explaining the scope of access during the connection flow improves informed consent and reduces the chance that users treat connection prompts as harmless.
 
@@ -337,7 +337,7 @@ Informs users during the connection prompt that connecting grants DApps access t
 
 Warns users when interacting with unknown addresses.
 
-**Testing instructions:** Send a transaction to a fresh address — one the account has never interacted with and that is not saved as a contact — both through a DApp and directly through the wallet UI. Observe whether any warning or indicator appears.
+**Testing instructions:** Send a transaction to a fresh address — one the account has never interacted with and that is not saved as a contact — both through a dApp and directly through the wallet UI. Observe whether any warning or indicator appears.
 
 **Reasoning:** Highlighting unknown recipients creates a useful pause before sending funds or interacting with a new contract that may be malicious or mistyped.
 
@@ -345,11 +345,11 @@ Warns users when interacting with unknown addresses.
 
 ### WSB-THRE-006
 
-**Shows DApp origin URL**
+**Shows dApp origin URL**
 
-Clearly displays the full DApp URL in the connection prompt.
+Clearly displays the full dApp URL in the connection prompt.
 
-**Testing instructions:** Attempt to connect the wallet to a DApp and observe how the origin URL is displayed in the connection dialog.
+**Testing instructions:** Attempt to connect the wallet to a dApp and observe how the origin URL is displayed in the connection dialog.
 
 **Reasoning:** The origin URL is one of the most important signals for spotting phishing or impersonation attempts. Showing the full, non-truncated URL helps users notice deceptive subdomains, typosquatting, or other visual tricks that could be hidden by truncation.
 
