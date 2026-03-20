@@ -8,24 +8,24 @@ Tests to ensure the wallet always asks before dApps access your balance or sugge
 
 | ID | Name | Description |
 |---|---|---|
-| [WSB-PERM-001](#wsb-perm-001) | SIWE domain mismatch warning | Warns users when the domain in a Sign-In with Ethereum (EIP-4361) message does not match the requesting dApp's origin. |
-| [WSB-PERM-002~Mobile](#wsb-perm-002mobile) | Wallet unlock before requests | Requires users to unlock before processing dApp requests when in a locked state. |
-| [WSB-PERM-002~Browser](#wsb-perm-002browser) | Wallet unlock before requests | Requires users to unlock before processing dApp requests when in a locked state. |
-| [WSB-PERM-003](#wsb-perm-003) | Different ChainID | Alerts users or rejects requests to sign EIP-712 data with a chain ID different from the active chain. |
-| [WSB-PERM-004](#wsb-perm-004) | Connected dApps | Allows users to list and revoke connected dApps. |
-| [WSB-PERM-005](#wsb-perm-005) | List and revoke token approvals | Allows users to view and revoke token approvals. |
-| [WSB-PERM-006](#wsb-perm-006) | Disables eth_sign method | Restricts the use of the deprecated and insecure eth_sign method by default. |
-| [WSB-PERM-007~Mobile](#wsb-perm-007mobile) | Confirmation for WalletConnect requests | Requires user confirmation for WalletConnect requests before granting dApp access to specific RPC methods. |
-| [WSB-PERM-008~Browser](#wsb-perm-008browser) | Connection to grant dApp access | Requires user connection approval before granting dApp access to specific RPC methods. |
-| [WSB-PERM-009](#wsb-perm-009) | User confirmation before switching chains | Requires user confirmation before accepting requests to switch the active chain. |
-| [WSB-PERM-010~Mobile](#wsb-perm-010mobile) | User confirmation for embedded browser requests | Requires user confirmation before processing specific RPC methods from dApps in the embedded browser. |
-| [WSB-PERM-010~Browser](#wsb-perm-010browser) | User confirmation before processing requests | Requires user confirmation before processing dApp requests for specific RPC methods. |
+| [WSB-PERM-001](#wsb-perm-001) | Mismatching SIWE domain detection | Warns users when the domain in a Sign-In with Ethereum (EIP-4361) message does not match the requesting dApp's origin. |
+| [WSB-PERM-002~Mobile](#wsb-perm-002mobile) | Wallet unlock before requests | Requires users to unlock it before processing dApp requests when in a locked state. |
+| [WSB-PERM-002~Browser](#wsb-perm-002browser) | Wallet unlock before requests | Requires users to unlock it before processing dApp requests when in a locked state. |
+| [WSB-PERM-003](#wsb-perm-003) | Mismatching EIP-712 chainId detection | Alerts users or rejects signing EIP-712 messages with a mismatched chain ID. |
+| [WSB-PERM-004](#wsb-perm-004) | Connected dApp management | Allows users to list and revoke connected dApps. |
+| [WSB-PERM-005](#wsb-perm-005) | Token approval management | Allows users to view and revoke token approvals. |
+| [WSB-PERM-006](#wsb-perm-006) | eth_sign method disabled | Restricts the use of the deprecated and insecure `eth_sign` method by default. |
+| [WSB-PERM-007~Mobile](#wsb-perm-007mobile) | Confirmation for requests from WalletConnect | Requires user confirmation for requests from WalletConnect before granting dApp access to specific RPC methods. |
+| [WSB-PERM-008~Browser](#wsb-perm-008browser) | User consent for dApp access | Requires user approval before granting dApp access to specific RPC methods. |
+| [WSB-PERM-009](#wsb-perm-009) | User confirmation before switching chains | Requires user confirmation before switching the active chain. |
+| [WSB-PERM-010~Mobile](#wsb-perm-010mobile) | User confirmation for requests from embedded browser | Requires user confirmation before processing privileged RPC requests from embedded browsers. |
+| [WSB-PERM-010~Browser](#wsb-perm-010browser) | User confirmation before processing requests | Requires user confirmation before processing requests from dApps for specific RPC methods. |
 
 ---
 
 ### WSB-PERM-001
 
-**SIWE domain mismatch warning**
+**Mismatching SIWE domain detection**
 
 Warns users when the domain in a Sign-In with Ethereum (EIP-4361) message does not match the requesting dApp's origin.
 
@@ -39,7 +39,7 @@ Warns users when the domain in a Sign-In with Ethereum (EIP-4361) message does n
 
 **Wallet unlock before requests** · Mobile
 
-Requires users to unlock before processing dApp requests when in a locked state.
+Requires users to unlock it before processing dApp requests when in a locked state.
 
 **Testing instructions:** If the wallet implements WalletConnect, with the wallet previously connected but in a locked state, send requests from a dApp to the following RPC endpoints: `wallet_addEthereumChain`, `wallet_watchAsset`, `eth_decrypt`, `eth_getEncryptionPublicKey`, `eth_signTypedData*`, `personal_sign`, `eth_sendTransaction`. Observe whether each request triggers an authentication prompt before being processed and look for possible information leaks.
 
@@ -51,7 +51,7 @@ Requires users to unlock before processing dApp requests when in a locked state.
 
 **Wallet unlock before requests** · Browser
 
-Requires users to unlock before processing dApp requests when in a locked state.
+Requires users to unlock it before processing dApp requests when in a locked state.
 
 **Testing instructions:** With the wallet already connected to a dApp but in a locked state, send requests from the dApp to each of the following RPC endpoints: `wallet_addEthereumChain`, `wallet_watchAsset`, `eth_decrypt`, `eth_getEncryptionPublicKey`, `eth_signTypedData*`, `personal_sign`, and `eth_sendTransaction`. Observe whether each request triggers an authentication prompt before being processed and look for possible information leaks.
 
@@ -61,9 +61,9 @@ Requires users to unlock before processing dApp requests when in a locked state.
 
 ### WSB-PERM-003
 
-**Different ChainID**
+**Mismatching EIP-712 chainId detection**
 
-Alerts users or rejects requests to sign typed structured data (EIP-712) with a chain ID different from the active chain.
+Alerts users or rejects signing EIP-712 messages with a mismatched chain ID.
 
 **Testing instructions:** Craft an EIP-712 object with a `chainId` different from the wallet's currently active network and attempt to sign it. For example, if the wallet is connected to Polygon (`chainId` 137), attempt signing an EIP-712 object with a different `chainId` and observe whether the wallet warns or rejects the request.
 
@@ -73,7 +73,7 @@ Alerts users or rejects requests to sign typed structured data (EIP-712) with a 
 
 ### WSB-PERM-004
 
-**Connected dApps**
+**Connected dApp management**
 
 Allows users to list and revoke connected dApps.
 
@@ -85,7 +85,7 @@ Allows users to list and revoke connected dApps.
 
 ### WSB-PERM-005
 
-**List and revoke token approvals**
+**Token approval management**
 
 Allows users to view and revoke token approvals.
 
@@ -97,7 +97,7 @@ Allows users to view and revoke token approvals.
 
 ### WSB-PERM-006
 
-**Disables eth_sign method**
+**eth_sign method disabled**
 
 Restricts the use of the deprecated and insecure `eth_sign` method by default.
 
@@ -109,9 +109,9 @@ Restricts the use of the deprecated and insecure `eth_sign` method by default.
 
 ### WSB-PERM-007~Mobile
 
-**Confirmation for WalletConnect requests** · Mobile
+**Confirmation for requests from WalletConnect** · Mobile
 
-Requires user confirmation for WalletConnect requests before granting dApp access to specific RPC methods.
+Requires user confirmation for requests from WalletConnect before granting dApp access to specific RPC methods.
 
 **Testing instructions:** If the wallet implements WalletConnect, connect to a dApp via WalletConnect and send requests to the following RPC endpoints: `wallet_addEthereumChain`, `wallet_watchAsset`, `eth_decrypt`, `eth_getEncryptionPublicKey`, `eth_signTypedData*`, `personal_sign`, `eth_sendTransaction`. Observe whether each request surfaces a confirmation prompt.
 
@@ -121,9 +121,9 @@ Requires user confirmation for WalletConnect requests before granting dApp acces
 
 ### WSB-PERM-008~Browser
 
-**Connection to grant dApp access** · Browser
+**User consent for dApp access** · Browser
 
-Requires user connection approval before granting dApp access to specific RPC methods.
+Requires user approval before granting dApp access to specific RPC methods.
 
 **Testing instructions:** Without first connecting the wallet to a dApp, send requests to the following RPC endpoints: `eth_accounts`, `eth_decrypt`, `eth_getEncryptionPublicKey`, `eth_signTypedData*`, `personal_sign`, `eth_sendTransaction`. Observe whether each request triggers a connection prompt or is rejected, and there are no information leaks.
 
@@ -135,7 +135,7 @@ Requires user connection approval before granting dApp access to specific RPC me
 
 **User confirmation before switching chains**
 
-Requires user confirmation before accepting requests to switch the active chain.
+Requires user confirmation before switching the active chain.
 
 **Testing instructions:** Send a `wallet_switchEthereumChain` RPC request from a dApp and observe whether a confirmation prompt appears. If no prompt is shown, check whether the wallet allows users to manage pre-approved networks within the connection dialog — if so, configure only one approved network and attempt to switch to any other chain. Perform this test through both the browser interface and the WalletConnect interface, if applicable.
 
@@ -145,9 +145,9 @@ Requires user confirmation before accepting requests to switch the active chain.
 
 ### WSB-PERM-010~Mobile
 
-**User confirmation for embedded browser requests** · Mobile
+**User confirmation for requests from embedded browser** · Mobile
 
-Requires user confirmation before processing specific RPC methods from dApps loaded by the embedded browser.
+Requires user confirmation before processing privileged RPC requests from embedded browsers.
 
 **Testing instructions:** If the wallet has an embedded browser, it requires user confirmation before processing each dApp request to the following RPC endpoints: `wallet_addEthereumChain`, `wallet_watchAsset`, `eth_decrypt`, `eth_getEncryptionPublicKey`, `eth_signTypedData*`, `personal_sign`, `eth_sendTransaction`.
 
@@ -173,19 +173,19 @@ Measures the wallet's ability to provide clear, human-readable transaction summa
 
 | ID | Name | Description |
 |---|---|---|
-| [WSB-VERI-001](#wsb-veri-001) | Invalid checksums | Warns users when they input addresses with invalid EIP-55 checksums. |
-| [WSB-VERI-002](#wsb-veri-002) | Clickable links | Consistently provides clickable links to reputable explorers for all key blockchain identifiers. |
-| [WSB-VERI-003](#wsb-veri-003) | Transaction simulation | Allows users to preview an expected outcome of a transaction before signing. |
-| [WSB-VERI-004](#wsb-veri-004) | Parses EIP-712 objects | Clearly displays human-readable details for EIP-712 signature requests from well-known dApps. |
-| [WSB-VERI-005](#wsb-veri-005) | Clear interface for ERC-20 Approve | Clearly displays all key details for ERC-20 Approve requests. |
-| [WSB-VERI-006](#wsb-veri-006) | Clear method data to be signed | Clearly displays all signature request details without truncating or hiding information. |
-| [WSB-VERI-007](#wsb-veri-007) | Review data before signing | Requires users to scroll through all signature request details before being allowed to proceed. |
+| [WSB-VERI-001](#wsb-veri-001) | Invalid address checksum detection | Warns users when they input addresses with invalid EIP-55 checksums. |
+| [WSB-VERI-002](#wsb-veri-002) | Links to blockchain explorers | Consistently provides clickable links to reputable explorers for all key blockchain identifiers. |
+| [WSB-VERI-003](#wsb-veri-003) | Transaction simulation | Previews the expected outcome by simulating the request execution on the blockchain before signing. |
+| [WSB-VERI-004](#wsb-veri-004) | EIP-712 message parsing | Displays human-readable details for EIP-712 signature requests from well-known protocols. |
+| [WSB-VERI-005](#wsb-veri-005) | Clear token approval dialog | Clearly displays all the key details for ERC-20 Approve requests. |
+| [WSB-VERI-006](#wsb-veri-006) | Clear message signing dialog | Clearly displays all message signature request details without truncating or hiding information. |
+| [WSB-VERI-007](#wsb-veri-007) | Mandatory message review | Requires users to review all the details before signing a message. |
 
 ---
 
 ### WSB-VERI-001
 
-**Invalid checksums**
+**Invalid address checksum detection**
 
 Warns users when they input addresses with invalid EIP-55 checksums.
 
@@ -197,7 +197,7 @@ Warns users when they input addresses with invalid EIP-55 checksums.
 
 ### WSB-VERI-002
 
-**Clickable links**
+**Links to blockchain explorers**
 
 Consistently provides clickable links to reputable explorers for all key blockchain identifiers.
 
@@ -211,7 +211,7 @@ Consistently provides clickable links to reputable explorers for all key blockch
 
 **Transaction simulation**
 
-Allows users to preview the expected outcome of the requested signature by simulating the transaction in advance.
+Previews the expected outcome by simulating the request execution on the blockchain before signing.
 
 **Testing instructions:** Attempt to provide liquidity into a liquidity pool and perform a swap (e.g. Uniswap) and observe whether the wallet shows the expected inputs and outputs from the execution of such transaction before it is signed.`
 
@@ -221,9 +221,9 @@ Allows users to preview the expected outcome of the requested signature by simul
 
 ### WSB-VERI-004
 
-**Parses EIP-712 objects**
+**EIP-712 message parsing**
 
-Clearly displays human-readable details for typed structured data (EIP-712) signature requests from well-known dApps.
+Displays human-readable details for EIP-712 signature requests from well-known protocols.
 
 **Testing instructions:** Trigger EIP-712 signature requests from well-known protocols such as OpenSea Seaport, ERC-20 Permit flows, or Uniswap, and observe how the wallet renders them — whether it shows structured, human-readable detail or raw JSON.
 
@@ -233,7 +233,7 @@ Clearly displays human-readable details for typed structured data (EIP-712) sign
 
 ### WSB-VERI-005
 
-**Clear interface for ERC-20 Approve**
+**Clear token approval dialog**
 
 Clearly displays all the key details for ERC-20 Approve requests.
 
@@ -245,9 +245,9 @@ Clearly displays all the key details for ERC-20 Approve requests.
 
 ### WSB-VERI-006
 
-**Clear method data to be signed**
+**Clear message signing dialog**
 
-Clearly displays all signature request details without truncating or hiding information.
+Clearly displays all message signature request details without truncating or hiding information.
 
 **Testing instructions:** Send large payloads via `personal_sign` and `eth_signTypedData` and observe how the wallet displays the data — whether all content is visible, scrollable, and not truncated. For EIP-712 objects, also check whether the `EIP712Domain`, including the `verifyingContract` address, is displayed.
 
@@ -257,9 +257,9 @@ Clearly displays all signature request details without truncating or hiding info
 
 ### WSB-VERI-007
 
-**Review data before signing**
+**Mandatory message review**
 
-Requires users to scroll through all signature request details before being allowed to proceed with signing.
+Requires users to review all the details before signing a message.
 
 **Testing instructions:** Send a large payload via `personal_sign` or `eth_signTypedData` and observe whether the sign button is accessible before scrolling to the end of the content.
 
@@ -273,21 +273,21 @@ Checks that the wallet is integrated with up-to-date lists of known threats and 
 
 | ID | Name | Description |
 |---|---|---|
-| [WSB-THRE-001](#wsb-thre-001) | Verified URLs | Informs users when interacting with a well-known dApp URL. |
-| [WSB-THRE-002](#wsb-thre-002) | Alerts on phishing address | Prevents or alerts users about interactions with known malicious blockchain addresses. |
-| [WSB-THRE-003](#wsb-thre-003) | Alerts on phishing dApps | Alerts users when attempting to interact with a known malicious URL. |
-| [WSB-THRE-004](#wsb-thre-004) | dApp connection information | Informs users that connecting grants dApps access to balances, history, and signatures. |
-| [WSB-THRE-005](#wsb-thre-005) | Interacting with unknown address | Warns users when interacting with unknown addresses. |
-| [WSB-THRE-006](#wsb-thre-006) | Shows dApp origin URL | Clearly displays the full dApp URL in the connection prompt. |
-| [WSB-THRE-007](#wsb-thre-007) | Hides spam or scam tokens and NFTs | Hides malicious tokens and NFTs by default. |
+| [WSB-THRE-001](#wsb-thre-001) | Trusted dApp detection | Informs users when interacting with a trusted dApp URL. |
+| [WSB-THRE-002](#wsb-thre-002) | Malicious address detection | Prevents or alerts users about interactions with a known malicious address. |
+| [WSB-THRE-003](#wsb-thre-003) | Phishing dApp detection | Prevents or alerts users about interactions with a known malicious URL. |
+| [WSB-THRE-004](#wsb-thre-004) | dApp access disclosure dialog | Informs dApp access to balances, history, and signing requests on connection. |
+| [WSB-THRE-005](#wsb-thre-005) | Unknown address detection | Warns users when interacting with an unknown address. |
+| [WSB-THRE-006](#wsb-thre-006) | Full dApp URL display | Clearly displays the full dApp URL in the connection prompt. |
+| [WSB-THRE-007](#wsb-thre-007) | Malicious or spam token filtering | Hides malicious tokens and NFTs by default. |
 
 ---
 
 ### WSB-THRE-001
 
-**Verified URLs**
+**Trusted dApp detection**
 
-Informs users when interacting with a well-known dApp URL.
+Informs users when interacting with a trusted dApp URL.
 
 **Testing instructions:** Attempt to connect to a well-known dApp (e.g. Uniswap) and observe the connection request screen. Then repeat with an unknown dApp and compare how each is displayed.
 
@@ -297,9 +297,9 @@ Informs users when interacting with a well-known dApp URL.
 
 ### WSB-THRE-002
 
-**Alerts on phishing address**
+**Malicious address detection**
 
-Prevents or alerts users about interactions with known malicious blockchain addresses.
+Prevents or alerts users about interactions with a known malicious address.
 
 **Testing instructions:** Attempt to send a transaction to a known malicious address (e.g. the Tornado Cash attacker address). Test both via dApp and direct wallet UI. Observe whether the wallet surfaces any warning.
 
@@ -309,9 +309,9 @@ Prevents or alerts users about interactions with known malicious blockchain addr
 
 ### WSB-THRE-003
 
-**Alerts on phishing dApps**
+**Phishing dApp detection**
 
-Alerts users when attempting to interact with a known malicious URL.
+Prevents or alerts users about interactions with a known malicious URL.
 
 **Testing instructions:** Visit or attempt to connect to sites included in the [MetaMask phishing list](https://github.com/MetaMask/eth-phishing-detect/blob/b68a72cc477273db3717204d5db699c11980b2f5/src/config.json) and observe whether the wallet warns the user. Note that Chrome also includes built-in phishing protection, which may trigger warnings for some of these sites, though not all.
 
@@ -321,9 +321,9 @@ Alerts users when attempting to interact with a known malicious URL.
 
 ### WSB-THRE-004
 
-**dApp connection information**
+**dApp access disclosure dialog**
 
-Informs users during the connection prompt that connecting grants dApps access to view balances, transaction history, and to request signatures.
+Informs dApp access to balances, history, and signing requests on connection.
 
 **Testing instructions:** Attempt connecting a dApp to the wallet and inspect the connection dialog for any description of what access the dApp is being granted.
 
@@ -333,9 +333,9 @@ Informs users during the connection prompt that connecting grants dApps access t
 
 ### WSB-THRE-005
 
-**Interacting with unknown address**
+**Unknown address detection**
 
-Warns users when interacting with unknown addresses.
+Warns users when interacting with an unknown address.
 
 **Testing instructions:** Send a transaction to a fresh address — one the account has never interacted with and that is not saved as a contact — both through a dApp and directly through the wallet UI. Observe whether any warning or indicator appears.
 
@@ -345,7 +345,7 @@ Warns users when interacting with unknown addresses.
 
 ### WSB-THRE-006
 
-**Shows dApp origin URL**
+**Full dApp URL display**
 
 Clearly displays the full dApp URL in the connection prompt.
 
@@ -357,7 +357,7 @@ Clearly displays the full dApp URL in the connection prompt.
 
 ### WSB-THRE-007
 
-**Hides spam or scam tokens and NFTs**
+**Malicious or spam token filtering**
 
 Hides malicious tokens and NFTs by default.
 
@@ -373,22 +373,22 @@ Evaluates the wallet's implementation of device-level security features. This in
 
 | ID | Name | Description |
 |---|---|---|
-| [WSB-PHYS-001](#wsb-phys-001) | Copy mnemonics to clipboard | Minimizes exposure of secrets when copying seed phrases to the clipboard or taking screenshots. |
-| [WSB-PHYS-002~Mobile](#wsb-phys-002mobile) | Robust authentication | Employs the strongest available authentication mechanisms, including biometrics and login attempt rate-limiting. |
-| [WSB-PHYS-002~Browser](#wsb-phys-002browser) | Robust authentication | Employs the strongest available authentication mechanisms such as enforcement of strong passwords. |
-| [WSB-PHYS-003](#wsb-phys-003) | Warns about sharing mnemonics/private keys | Warns users of the risk before allowing access to seed phrases or private keys. |
-| [WSB-PHYS-004](#wsb-phys-004) | Manual wallet lock | Allows users to lock the wallet manually. |
-| [WSB-PHYS-005](#wsb-phys-005) | Seed phrase authentication | Requires authentication to access seed phrases or private keys. |
-| [WSB-PHYS-006~Mobile](#wsb-phys-006mobile) | Automatic wallet lock | Automatically locks after a period of inactivity. |
-| [WSB-PHYS-006~Browser](#wsb-phys-006browser) | Automatic wallet lock | Automatically locks after a period of inactivity. |
+| [WSB-PHYS-001](#wsb-phys-001) | Clipboard seed phrase leak prevention | Limits exposure of secrets by restricting or warning on copying seed phrases or taking screenshots. |
+| [WSB-PHYS-002~Mobile](#wsb-phys-002mobile) | Robust authentication | Uses strong authentication, including biometrics, rate limiting, and strong password enforcement. |
+| [WSB-PHYS-002~Browser](#wsb-phys-002browser) | Robust authentication | Uses strong authentication, such as strong password enforcement. |
+| [WSB-PHYS-003](#wsb-phys-003) | Seed phrase access warning | Warns users of the risk before allowing access to seed phrases or private keys. |
+| [WSB-PHYS-004](#wsb-phys-004) | Manual wallet lock | Allows users to lock it manually. |
+| [WSB-PHYS-005](#wsb-phys-005) | Seed phrase access control | Requires authentication to access seed phrases or private keys. |
+| [WSB-PHYS-006~Mobile](#wsb-phys-006mobile) | Automatic wallet lock | Verifies wallet auto-locks on inactivity, device lock, or background. |
+| [WSB-PHYS-006~Browser](#wsb-phys-006browser) | Automatic wallet lock | Verifies wallet auto-locks on inactivity. |
 
 ---
 
 ### WSB-PHYS-001
 
-**Copy mnemonics to clipboard**
+**Clipboard seed phrase leak prevention**
 
-Minimizes exposure of secrets by limiting or warning users when copying seed phrases to the clipboard or taking screenshots.
+Limits exposure of secrets by restricting or warning on copying seed phrases or taking screenshots.
 
 **Testing instructions:** Navigate to the seed phrase screen and copy the mnemonic to the clipboard. Observe whether the wallet clears it after a short time or displays a warning about clipboard risks. On mobile, also attempt to take a screenshot of the seed phrase screen and observe the wallet's response.
 
@@ -400,7 +400,7 @@ Minimizes exposure of secrets by limiting or warning users when copying seed phr
 
 **Robust authentication**
 
-Employs the strongest available authentication mechanisms, including biometrics and login attempt rate-limiting.
+Uses strong authentication, including biometrics, rate limiting, and strong password enforcement.
 
 **Testing instructions:** Check whether biometric authentication is available and attempt to set a weak PIN (e.g. `1234`). Then attempt multiple incorrect logins and observe whether rate limiting activates.
 
@@ -411,7 +411,7 @@ Employs the strongest available authentication mechanisms, including biometrics 
 
 **Robust authentication**
 
-Employs the strongest available authentication mechanisms such as enforcement of strong passwords.
+Uses strong authentication, such as strong password enforcement.
 
 **Testing instructions:** Attempt short or trivial passwords such as `1234`, `12345678`, `qwertyui`, or `password` and observe whether they are accepted.
 
@@ -421,7 +421,7 @@ Employs the strongest available authentication mechanisms such as enforcement of
 
 ### WSB-PHYS-003
 
-**Warns about sharing mnemonics/private keys**
+**Seed phrase access warning**
 
 Warns users of the risk before allowing access to seed phrases or private keys.
 
@@ -435,7 +435,7 @@ Warns users of the risk before allowing access to seed phrases or private keys.
 
 **Manual wallet lock**
 
-Allows users to lock the wallet manually.
+Allows users to lock it manually.
 
 **Testing instructions:** Look for a manual lock button within the wallet UI.
 
@@ -445,7 +445,7 @@ Allows users to lock the wallet manually.
 
 ### WSB-PHYS-005
 
-**Seed phrase authentication**
+**Seed phrase access control**
 
 Requires authentication to access seed phrases or private keys.
 
@@ -459,7 +459,7 @@ Requires authentication to access seed phrases or private keys.
 
 **Automatic wallet lock** · Mobile
 
-Automatically locks after a period of inactivity.
+The wallet auto-locks on inactivity, device lock, or background.
 
 **Testing instructions:** Review the auto-lock timer in the wallet settings. If it's set to 0, the wallet won't likely auto-lock. If the wallet does not expose an auto-lock setting, exit the wallet or leave it idle and observe whether it locks after a reasonable period of inactivity. Also verify whether the wallet also locks when the application is moved to the background or when the device itself is locked. 
 
@@ -471,7 +471,7 @@ Automatically locks after a period of inactivity.
 
 **Automatic wallet lock** · Browser
 
-Automatically locks after a period of inactivity.
+The wallet auto-locks after a period of inactivity..
 
 **Testing instructions:** Check the wallet settings for an auto-lock configuration. If no setting is visible, leave the wallet idle for up to 20 minutes to observe whether it auto-locks. If it's 0 by default, then the wallet does not auto-lock on inactivity.
 
