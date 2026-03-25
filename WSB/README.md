@@ -198,7 +198,7 @@ Measures the wallet's ability to provide clear, human-readable transaction summa
 | ID | Name | Description |
 |---|---|---|
 | [WSB-VERI-001](#wsb-veri-001) | Invalid address checksum detection | Warns users when they input addresses with invalid EIP-55 checksums. |
-| [WSB-VERI-002](#wsb-veri-002) | Links to blockchain explorers | Consistently provides clickable links to reputable explorers for all key blockchain identifiers. |
+| [WSB-VERI-002](#wsb-veri-002) | Links to blockchain explorers | Consistently provides clickable links to block explorers for all key blockchain identifiers. |
 | [WSB-VERI-003](#wsb-veri-003) | Transaction simulation | Previews the expected outcome by simulating the request execution on the blockchain before signing. |
 | [WSB-VERI-004](#wsb-veri-004) | EIP-712 message parsing | Displays human-readable details for EIP-712 signature requests from well-known protocols. |
 | [WSB-VERI-005](#wsb-veri-005) | Clear token approval dialog | Clearly displays all the key details for ERC-20 Approve requests. |
@@ -307,7 +307,7 @@ Requires users to review all the details before signing a message.
 
 ## Threat Prevention (THRE)
 
-Checks that the wallet is integrated with up-to-date lists of known threats and conducts real-time checks of blockchain addresses and web domains before any transactions or connections.
+Checks that the wallet is integrated with lists of known threats and conducts real-time checks of blockchain addresses and web domains before any transactions or connections.
 
 | ID | Name | Description |
 |---|---|---|
@@ -407,9 +407,9 @@ Clearly displays the full dApp URL in the connection prompt.
 
 ### WSB-THRE-007
 
-**Malicious or spam token filtering**
+**Spam token filtering**
 
-Hides malicious tokens and NFTs by default.
+Filters unsolicited tokens by default to protect users from potentially malicious interactions.
 
 **Attack scenario:** Spam tokens or NFTs trick users into interacting with malicious links, contracts, or social engineering schemes.
 
@@ -426,8 +426,8 @@ Evaluates the wallet's implementation of device-level security features. This in
 | ID | Name | Description |
 |---|---|---|
 | [WSB-PHYS-001](#wsb-phys-001) | Clipboard seed phrase leak prevention | Limits exposure of secrets by restricting or warning on copying seed phrases or taking screenshots. |
-| [WSB-PHYS-002~Mobile](#wsb-phys-002mobile) | Robust authentication | Uses strong authentication, including biometrics, rate limiting, and strong password enforcement. |
-| [WSB-PHYS-002~Browser](#wsb-phys-002browser) | Robust authentication | Uses strong authentication, such as strong password enforcement. |
+| [WSB-PHYS-002~Mobile](#wsb-phys-002mobile) | Robust authentication | Uses strong authentication, including biometrics, rate limiting, and resistance to trivial credentials. |
+| [WSB-PHYS-002~Browser](#wsb-phys-002browser) | Robust authentication | Uses strong authentication, such as resistance to trivial or commonly-used passwords. |
 | [WSB-PHYS-003](#wsb-phys-003) | Seed phrase access warning | Warns users of the risk before allowing access to seed phrases or private keys. |
 | [WSB-PHYS-004](#wsb-phys-004) | Manual wallet lock | Allows users to lock it manually. |
 | [WSB-PHYS-005](#wsb-phys-005) | Seed phrase access control | Requires authentication to access seed phrases or private keys. |
@@ -454,7 +454,7 @@ Limits exposure of secrets by restricting or warning on copying seed phrases or 
 
 **Robust authentication**
 
-Uses strong authentication, including biometrics, rate limiting, and strong password enforcement.
+Uses strong authentication, including biometrics, rate limiting, and resistance to trivial credentials.
 
 **Attack scenario:** An attacker with access to the device bypasses weak authentication mechanisms (e.g., weak passwords, lack of rate limiting) to gain control of the wallet.
 
@@ -467,7 +467,7 @@ Uses strong authentication, including biometrics, rate limiting, and strong pass
 
 **Robust authentication**
 
-Uses strong authentication, such as strong password enforcement.
+Uses strong authentication, such as resistance to trivial or commonly-used passwords.
 
 **Attack scenario:** An attacker with access to the device bypasses weak authentication mechanisms (e.g., weak passwords) to gain control of the wallet.
 
@@ -527,7 +527,7 @@ The wallet auto-locks on inactivity, device lock, or background.
 
 **Attack scenario:** An attacker with access to the device exploits an idle or background wallet session that remains unlocked.
 
-**Testing instructions:** Review the auto-lock timer in the wallet settings. If it's set to 0, the wallet won't likely auto-lock. If the wallet does not expose an auto-lock setting, exit the wallet or leave it idle and observe whether it locks after a reasonable period of inactivity. Also verify whether the wallet also locks when the application is moved to the background or when the device itself is locked. 
+**Testing instructions:** Review the auto-lock timer in the wallet settings. If it's set to 0, the wallet won't likely auto-lock. If the wallet does not expose an auto-lock setting, exit the wallet or leave it idle and observe whether it locks after a period of inactivity. Also verify whether the wallet also locks when the application is moved to the background or when the device itself is locked. 
 
 **Reasoning:** Mobile devices are frequently lost, borrowed, or left unlocked briefly, so short auto-lock periods materially reduce the chance of unauthorized access.
 
@@ -537,10 +537,10 @@ The wallet auto-locks on inactivity, device lock, or background.
 
 **Automatic wallet lock** · Browser
 
-The wallet auto-locks after a period of inactivity..
+The wallet auto-locks after a period of inactivity.
 
 **Attack scenario:** An attacker with access to the device exploits an idle or unattended wallet session that remains unlocked.
 
 **Testing instructions:** Check the wallet settings for an auto-lock configuration. If no setting is visible, leave the wallet idle for up to 20 minutes to observe whether it auto-locks. If it's 0 by default, then the wallet does not auto-lock on inactivity.
 
-**Reasoning:** Browser extension wallets often remain open for long periods on shared or unattended computers. A reasonable auto-lock time reduces the window in which an attacker, coworker, or malicious webpage can exploit an already-unlocked wallet.
+**Reasoning:** Browser extension wallets often remain open for long periods on shared or unattended computers. Auto-locking after a period of inactivity time reduces the window in which an attacker, coworker, or malicious webpage can exploit an already-unlocked wallet.
