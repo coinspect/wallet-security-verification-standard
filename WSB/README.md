@@ -1,6 +1,6 @@
 # Wallet Security Benchmark (WSB)
 
-The WSB is a set of black-box tests that can be performed against a wallet without access to its source code. The tests focus primarily on phishing protection — evaluating how well a wallet defends users against deceptive dApps, malicious signatures, and social engineering at the UI level.
+The WSB is a set of interaction-based security tests for web3 wallets, currently covering phishing protection and physical access scenarios. No source code access required.
 
 ## dApp Permissions (PERM)
 
