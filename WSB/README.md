@@ -4,7 +4,9 @@ The WSB is a set of interaction-based security tests for web3 wallets, currently
 
 ## dApp Permissions (PERM)
 
-Tests to ensure the wallet always asks before dApps access your balance or suggest transaction, and provides permissions control features such as token approvals management.
+Evaluates how the wallet manages dApp permissions and restricts sensitive RPCs. Includes enforcing user consent for connections, disclosing access scopes, and enforcing unlocks, plus tools to review or revoke persistent connections and token allowances.
+
+**Attack scenario:** A malicious dApp exploits weak access controls, silent RPC execution, or undisclosed permission scopes to drain funds or perform unauthorized actions without explicit user consent.
 
 | ID | Name | Description |
 |---|---|---|
@@ -193,7 +195,9 @@ Requires user confirmation before processing requests from dApps for specific RP
 
 ## Intent Verification (VERI)
 
-Measures the wallet's ability to provide clear, human-readable transaction summaries so you know what will happen with your assets before approving.
+Evaluates how effectively the wallet decodes and presents transaction data. Includes translating raw hex/EIP-712 into readable formats, simulating outcomes, validating checksums, and ensuring payloads are fully visible and reviewed before signing.
+
+**Attack scenario:** An attacker tricks the user into blind-signing opaque or partially hidden payloads, or exploits mistyped addresses, causing unintended asset transfers to malicious destinations.
 
 | ID | Name | Description |
 |---|---|---|
@@ -307,7 +311,9 @@ Requires users to review all the details before signing a message.
 
 ## Threat Prevention (THRE)
 
-Checks that the wallet is integrated with lists of known threats and conducts real-time checks of blockchain addresses and web domains before any transactions or connections.
+Evaluates proactive measures against deceptive dApps and external threats. Includes blocklists for phishing and malicious contracts, identification of trusted domains, and filtering out malicious tokens or NFTs.
+
+**Attack scenario:** A user interacts with a phishing site or malicious contract, and the wallet fails to intercept the interaction or warn about the risk, leading to direct asset loss.
 
 | ID | Name | Description |
 |---|---|---|
@@ -421,7 +427,9 @@ Filters unsolicited tokens by default to protect users from potentially maliciou
 
 ## Physical Access (PHYS)
 
-Evaluates the wallet's implementation of device-level security features. This includes biometric authentication (fingerprint, face ID), strong password requirements, and attempt limitations.
+Evaluates defenses against unauthorized physical access and local data exposure. Includes strong authentication, auto-locking, rate limiting, and restricting seed phrase exposure via clipboards, screenshots, or unauthenticated views.
+
+**Attack scenario:** An attacker with temporary physical access exploits an unlocked session or weak local authentication to authorize transactions or exfiltrate secrets (like the seed phrase).
 
 | ID | Name | Description |
 |---|---|---|
