@@ -349,7 +349,7 @@ Prevents or alerts users about interactions with a known malicious address or a 
 
 **Attack scenario:** A user unknowingly sends funds to an address associated with scams, theft, or malicious activity. In the poisoning variant, a user sends funds to a lookalike address that mimics a trusted recipient's leading and trailing characters but was planted by an attacker via a dust or zero-value transfer.
 
-**Testing instructions:** Test both via dApp and direct wallet UI, observing whether the wallet surfaces any warning on each attempt. 1) Attempt to send a transaction to a known malicious address (e.g. the Tornado Cash attacker address). 2) Attempt to send a transaction to a lookalike address that shares its first and/or last 2-4 characters with a recipient you have previously sent to, but differs in the middle.
+**Testing instructions:** Test both via dApp and direct wallet UI, observing whether the wallet surfaces any warning on each attempt. 1) Attempt to send a transaction to a known malicious address (e.g. the Tornado Cash attacker address). 2) Attempt to send a transaction to a lookalike address that shares its first and last 2-4 characters with a recipient you have previously sent to, but differs in the middle.
 
 **Reasoning:** Many scams rely on users sending funds to addresses linked to theft, laundering, or fraud, so alerting on them gives a last defensive checkpoint before irreversible transfers. Poisoning is a related vector: a lookalike address planted in the user's history appears familiar, and since users often check only the leading and trailing characters, the wallet must treat it as malicious.
 
