@@ -202,7 +202,7 @@ Evaluates how effectively the wallet decodes and presents transaction data. Incl
 | ID | Name | Description |
 |---|---|---|
 | [WSB-VERI-001](#wsb-veri-001) | Invalid address checksum detection | Warns users when they input addresses with invalid EIP-55 checksums. |
-| [WSB-VERI-002](#wsb-veri-002) | Links to blockchain explorers | Consistently provides clickable links to block explorers for all key blockchain identifiers. |
+| [WSB-VERI-002](#wsb-veri-002) | Links to blockchain explorers | Provides clickable links to block explorers for at least one key blockchain identifier. |
 | [WSB-VERI-003](#wsb-veri-003) | Transaction simulation | Previews the expected outcome by simulating the request execution on the blockchain before signing. |
 | [WSB-VERI-004](#wsb-veri-004) | EIP-712 message parsing | Displays human-readable details for EIP-712 signature requests from well-known protocols. |
 | [WSB-VERI-005](#wsb-veri-005) | Clear token approval dialog | Clearly displays all the key details for ERC-20 Approve requests. |
@@ -229,11 +229,11 @@ Warns users when they input addresses with invalid EIP-55 checksums.
 
 **Links to blockchain explorers**
 
-Consistently provides clickable links to reputable explorers for all key blockchain identifiers.
+Provides clickable links to reputable explorers for at least one key blockchain identifier.
 
 **Attack scenario:** A malicious interface misrepresents transaction or address details, preventing independent verification by the user.
 
-**Testing instructions:** Attempt to send a transaction and inspect the transaction details screen. Also browse the wallet's transaction history. Observe whether addresses, contract addresses, and transaction hashes are displayed as clickable links to a block explorer.
+**Testing instructions:** Attempt to send a transaction and inspect the transaction details screen. Also browse the wallet's transaction history. Observe whether addresses, contract addresses, or transaction hashes are displayed as clickable links to a block explorer.
 
 **Reasoning:** Explorer links let users independently verify addresses, contracts, and transactions instead of trusting only the wallet UI. This improves transparency and makes it easier to inspect counterparties, token contracts, and transaction outcomes before or after signing.
 
@@ -320,7 +320,7 @@ Evaluates proactive measures against deceptive dApps and external threats. Inclu
 | [WSB-THRE-001](#wsb-thre-001) | Trusted dApp detection | Informs users when interacting with a trusted dApp URL. |
 | [WSB-THRE-002](#wsb-thre-002) | Malicious address detection | Prevents or alerts users about interactions with a known malicious address. |
 | [WSB-THRE-003](#wsb-thre-003) | Phishing dApp detection | Prevents or alerts users about interactions with a known malicious URL. |
-| [WSB-THRE-004](#wsb-thre-004) | dApp access disclosure dialog | Informs dApp access to balances, history, and signing requests on connection. |
+| [WSB-THRE-004](#wsb-thre-004) | dApp access disclosure dialog | Discloses the dApp's read access to the user's account and its ability to request signatures on connection. |
 | [WSB-THRE-005](#wsb-thre-005) | Unknown address detection | Warns users when interacting with an unknown address. |
 | [WSB-THRE-006](#wsb-thre-006) | Full dApp URL display | Clearly displays the full dApp URL in the connection prompt. |
 | [WSB-THRE-007](#wsb-thre-007) | Malicious or spam token filtering | Hides malicious tokens and NFTs by default. |
@@ -373,7 +373,7 @@ Prevents or alerts users about interactions with a known malicious URL.
 
 **dApp access disclosure dialog**
 
-Informs dApp access to balances, history, and signing requests on connection.
+Discloses, on connection, the dApp's read access to the user's account (addresses, balance, activity) and its ability to request signatures.
 
 **Attack scenario:** A user grants access to a malicious dApp without understanding the scope of its capabilities, allowing it to later exploit its permissions or any wallet-side vulnerabilities once connected.
 
